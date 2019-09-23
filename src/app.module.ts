@@ -5,5 +5,5 @@ import { BackofficeModule } from './backoffice/backoffice.module';
   imports: [BackofficeModule],
   controllers: [],
   providers: [],
-}) //decorator - agrega dados as classes
+})
 export class AppModule {}
