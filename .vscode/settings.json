@@ -1,0 +1,8 @@
+{
+    "gitflow4code.features": [
+        {
+            "name": "feature/start-config",
+            "base": "develop"
+        }
+    ]
+}
