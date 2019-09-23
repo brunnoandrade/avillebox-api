@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 
 @Controller()
-export class CostumerController {
+export class CustomerController {
     get() {
         return 'Obter os clientes';
     }
