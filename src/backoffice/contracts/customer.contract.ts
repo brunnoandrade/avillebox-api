@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Flunt } from 'src/utils/flunt';
+import { Flunt } from '../../utils/flunt';
 import { Contract } from './contract';
 import { CreateCustomerDto } from '../dtos/create-costumer-dto';
 
