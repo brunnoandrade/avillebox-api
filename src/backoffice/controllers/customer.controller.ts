@@ -1,12 +1,14 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, HttpException, HttpStatus } from '@nestjs/common';
 import { Result } from '../models/result.model';
 import { ValidatorInterceptor } from '../../interceptors/validator.interceptor';
-import { CreateCustomerContract } from '../contracts/customer.contract';
+import { CreateCustomerContract } from '../contracts/customer/create-customer.contract';
 import { CreateCustomerDto } from '../dtos/create-costumer-dto';
 import { AccountService } from '../services/account.service';
 import { User } from '../models/user.model';
 import { CustomerService } from '../services/costumer.service';
 import { Customer } from '../models/customer.model';
+import { Address } from '../models/address.model';
+import { CreateAddressContract } from '../contracts/customer/create-address.contract';
 
 // localhost:3000/v1/customers/
 @Controller('v1/customers')
@@ -38,6 +40,17 @@ export class CustomerController {
             return new Result('Cliente criado com sucesso!', true, res, null);
         } catch (error) {
             throw new HttpException(new Result('Não foi possível realizar seu cadastro', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/addresses/billing')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
+    async addBillingAddress(@Param('document') document, @Body() model: Address) {
+        try {
+            const res = await this.customerService.addBillingAddress(document, model);
+            return res;
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST);
         }
     }
 
