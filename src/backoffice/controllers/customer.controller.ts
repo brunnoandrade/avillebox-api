@@ -78,4 +78,10 @@ export class CustomerController {
             throw new HttpException(new Result('Não foi possível atualizar seu pet', false, null, error), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Get()
+    async getAll() {
+        const costumers = await this.customerService.findAll();
+        return new Result(null, true, costumers, null);
+    }
 }
