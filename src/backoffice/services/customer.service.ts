@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Customer } from '../models/customer.model';
 import { Address } from '../models/address.model';
 import { Pet } from '../models/pet.model';
+import { QueryDto } from '../dtos/query.dto';
 
 @Injectable()
 export class CustomerService {
@@ -58,12 +59,21 @@ export class CustomerService {
 
     async find(document): Promise<Customer> {
         return await this.model
-        .find({ document })
-        .populate('user', 'username')
-        .exec();
+            .find({ document })
+            .populate('user', 'username')
+            .exec();
     }
 
-    // Ordenar resultado
-
-    // Query
+    async query(model: QueryDto): Promise<Customer[]> {
+        return await this.model
+            .find(
+                model.query,
+                model.fields,
+                {
+                    skip: model.skip,
+                    limit: model.take,
+                })
+            .sort(model.sort)
+            .exec();
+    }
 }
