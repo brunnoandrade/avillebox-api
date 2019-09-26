@@ -48,7 +48,18 @@ export class CustomerController {
     async addBillingAddress(@Param('document') document, @Body() model: Address) {
         try {
             const res = await this.customerService.addBillingAddress(document, model);
-            return res;
+            return new Result(null, true, res, null);
+        } catch (error) {
+            throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/addresses/shipping')
+    @UseInterceptors(new ValidatorInterceptor(new CreateAddressContract()))
+    async addShippingAddress(@Param('document') document, @Body() model: Address) {
+        try {
+            await this.customerService.addShippingAddress(document, model);
+            return new Result(null, true, model, null);
         } catch (error) {
             throw new HttpException(new Result('Não foi possível adicionar seu endereço', false, null, error), HttpStatus.BAD_REQUEST);
         }
