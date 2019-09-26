@@ -2,15 +2,16 @@ import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, HttpE
 import { Result } from '../models/result.model';
 import { ValidatorInterceptor } from '../../interceptors/validator.interceptor';
 import { CreateCustomerContract } from '../contracts/customer/create-customer.contract';
-import { CreateCustomerDto } from '../dtos/create-costumer-dto';
+import { CreateCustomerDto } from '../dtos/create-customer.dto';
 import { AccountService } from '../services/account.service';
 import { User } from '../models/user.model';
-import { CustomerService } from '../services/costumer.service';
+import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.model';
 import { Address } from '../models/address.model';
 import { CreateAddressContract } from '../contracts/customer/create-address.contract';
 import { CreatePetContract } from '../contracts/customer/create-pet.contract';
 import { Pet } from '../models/pet.model';
+import { QueryDto } from '../dtos/query.dto';
 
 // localhost:3000/v1/customers/
 @Controller('v1/customers')
@@ -81,13 +82,19 @@ export class CustomerController {
 
     @Get()
     async getAll() {
-        const costumers = await this.customerService.findAll();
-        return new Result(null, true, costumers, null);
+        const customers = await this.customerService.findAll();
+        return new Result(null, true, customers, null);
     }
 
     @Get(':document')
     async get(@Param('document') document) {
-        const costumer = await this.customerService.find(document);
-        return new Result(null, true, costumer, null);
+        const customer = await this.customerService.find(document);
+        return new Result(null, true, customer, null);
+    }
+
+    @Post('query')
+    async query(@Body() model: QueryDto) {
+        const customers = await this.customerService.query(model);
+        return new Result(null, true, customers, null);
     }
 }
