@@ -56,7 +56,12 @@ export class CustomerService {
             .exec();
     }
 
-    // Retorna com usuário
+    async find(document): Promise<Customer> {
+        return await this.model
+        .find({ document })
+        .populate('user', 'username')
+        .exec();
+    }
 
     // Ordenar resultado
 
