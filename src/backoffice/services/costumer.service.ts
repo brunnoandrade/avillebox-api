@@ -48,4 +48,17 @@ export class CustomerService {
             }
         });
     }
+
+    async findAll(): Promise<Customer[]> {
+        return await this.model
+            .find({}, 'name email document')
+            .sort('name')
+            .exec();
+    }
+
+    // Retorna com usuário
+
+    // Ordenar resultado
+
+    // Query
 }
