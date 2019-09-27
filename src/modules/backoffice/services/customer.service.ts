@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Customer } from '../models/customer.model';
 import { QueryDto } from '../dtos/query.dto';
 import { UpdateCustomerDto } from '../dtos/customer/update-customer.dto';
+import { CreditCard } from '../models/credit-card.model';
 
 @Injectable()
 export class CustomerService {
@@ -43,5 +44,14 @@ export class CustomerService {
                 })
             .sort(model.sort)
             .exec();
+    }
+
+    async saveOrUpdateCreditCard(document: string, data: CreditCard): Promise<Customer> {
+        const options = { upsert: true };
+        return await this.model.findOneAndUpdate({ document }, {
+            $set: {
+                card: data,
+            },
+        }, options);
     }
 }
