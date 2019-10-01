@@ -1,4 +1,3 @@
-
 export class Result {
     constructor(
         public message: string,
