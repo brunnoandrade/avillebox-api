@@ -9,10 +9,10 @@ import { StoreModule } from './modules/store/store.module';
     MongooseModule.forRoot('mongodb+srv://useravill:AWPyDoqe6Si2waSL@avillebox-qgu3x.azure.mongodb.net/test?retryWrites=true&w=majority'),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '127.0.0.1',
       port: 3306,
       username: 'root',
-      password: 'rootnexo00',
+      password: 'mysql',
       database: 'avillebox_db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
