@@ -33,11 +33,6 @@ export class AccountService {
             .populate('user')
             .exec();
 
-        const pass = await Md5.init(`${password}${process.env.SALT_KEY}`);
-        if (pass.toString() === customer.user.password.toString()) {
-            return customer;
-        } else {
-            return null;
-        }
+        return customer;
     }
 }
