@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { StoreModule } from './modules/store/store.module';
-import { AgendaModule } from './agenda/agenda.module';
+import { AgendaModule } from './modules/agenda/agenda.module';
 
 @Module({
   imports: [
