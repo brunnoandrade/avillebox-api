@@ -11,14 +11,16 @@ export class BookRoomHandler implements ICommandHandler<BookRoomCommand> {
     ) { }
 
     async execute(command: BookRoomCommand) {
+        console.log('BookRoomHandler:execute - Executando o comando...');
+
         const room = this.publisher.mergeObjectContext(
-            await this.repository.checkAvailability(command.roomId, command.date)
+            await this.repository.checkAvailability(command.roomId, command.date),
         );
 
         if (room) {
             room.book(command.customerId, command.date);
-            await this.repository.book(room);
-            return;
+            room.commit();
+            return await this.repository.book(room);
         }
 
         throw new HttpException('Sala não disponível', HttpStatus.BAD_REQUEST);

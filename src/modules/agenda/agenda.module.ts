@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
+import { AgendaController } from './agenda.controller';
 import { RoomBookService } from './services/room-book.service';
 import { RoomRepository } from './repositories/room.repository';
-import { AgendaController } from './controllers/agenda.controller';
 import { CommandHandlers } from './commands/handlers';
 import { EventHandlers } from './events/handlers';
 
@@ -13,7 +13,7 @@ import { EventHandlers } from './events/handlers';
         RoomBookService,
         RoomRepository,
         ...CommandHandlers,
-        ...EventHandlers,
+        ...EventHandlers
     ],
 })
 export class AgendaModule { }
